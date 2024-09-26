@@ -1,0 +1,24 @@
+.datepicker-input input {
+    /* Hide the input box to prevent manual entry */
+    pointer-events: none;
+    background-color: #f1f1f1; /* Optional: Change background to indicate non-editable state */
+}
+
+.custom-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-with-link {
+    display: inline-block;
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.slds-required {
+    color: red;
+    margin-right: 5px;
+}
+.required-asterisk {
+    color: red;
+    font-weight: bold;
+}

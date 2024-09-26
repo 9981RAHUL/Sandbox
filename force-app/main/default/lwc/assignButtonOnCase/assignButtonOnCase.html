@@ -1,0 +1,49 @@
+<template>
+<lightning-button name="openModal" label="Assign" onclick={openModal} variant="brand" class="slds-var-m-around_small"></lightning-button>
+<template if:true={showModal}>
+   <section aria-modal="true" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container ">
+         <header class="slds-modal__header">
+               <h2 class="slds-text-heading_small">Search Agent</h2>
+               <lightning-icon class="slds-modal__close" icon-name="utility:close" size="small" onclick={closeModal2}></lightning-icon>
+         </header>
+         <div class="slds-modal__content">
+               <div class="slds-var-p-around_small">
+   <div class="slds-var-m-around_medium">
+                  
+                  <div class="slds-var-m-bottom_small">
+                     <lightning-input type="search"
+                        value={searchKey}
+                        label="Agent Name"
+                        onchange={searchKeyword}
+                        ></lightning-input>
+                  </div>
+                     
+                  <template if:true={usr.data}>
+                  <lightning-datatable
+                     data={usr.data}
+                     columns={columns}
+                     key-field="id"
+                     onrowselection={getSelectedName}>
+                  </lightning-datatable>
+               
+               </template>
+            
+            
+
+               </div>          
+   </div>
+         </div>
+         <footer class="slds-modal__footer">
+
+            <lightning-record-view-form object-api-name="case" record-id={recordId}> 
+               <lightning-button variant="brand" label="Assign" onclick={AssignUser} ></lightning-button>
+               <lightning-button variant="brand" label="Cancel" onclick={closeModal2} class="slds-var-p-around_x-small"></lightning-button>
+                 
+            </lightning-record-view-form>
+         </footer>
+      </div>
+   </section>
+   <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+</template>

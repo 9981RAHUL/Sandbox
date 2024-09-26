@@ -1,0 +1,6 @@
+<apex:page standardController="Case" lightningStylesheets="true">
+    <body style="background-color:#000d33;">
+   <p style= "font-size: 30px; color: {!if(Case.Reopen_Count_New__c <> NULL, if(Case.Reopen_Count_New__c <=1,'#006600',if(Case.Reopen_Count_New__c <3,'#ffcc00','#b30000') ),'#006600')}; background-color: #000d33; text-align: center; !important;" > <b> Reopen Count = 
+     <apex:outputText value="{!if(Case.Reopen_Count_New__c <> NULL , Case.Reopen_Count_New__c, '0')}" style="font-size: 30px;  !important;" /> </b> </p>
+</body>
+    </apex:page>

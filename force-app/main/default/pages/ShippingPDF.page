@@ -1,0 +1,29 @@
+<apex:page controller="attachPDFtoCase"   renderAs="PDF">
+    
+    <h1><b><center>
+        <apex:outputpanel rendered="{!If((cpartner<>'India Post'),true,false)}">
+ 
+        <apex:outputText value="{!DSTARCD}"></apex:outputText>
+        
+        </apex:outputpanel>
+        </center></b></h1><br/>
+    To,<br/><br/>
+    <b><apex:outputText value="{!ContactName}"></apex:outputText></b><br/>
+  
+   <p style="word-break: break-all; width: 400px;">
+       <apex:outputText value="{!Street}"  ></apex:outputText>
+    </p>
+    <apex:outputText value="{!City}"></apex:outputText><br/>
+    <apex:outputText value="{!State}"></apex:outputText><br/>
+    <apex:outputText value="{!Zip}"></apex:outputText><br/>
+    <apex:outputText value="{!Country}"></apex:outputText><br/><br/>
+    <apex:outputText value="{!ProductColor}"></apex:outputText><br/><br/>
+    <b> <apex:outputText value="{!phone}"></apex:outputText></b><br/>
+    <b>Case No:-<apex:outputText value="{!caseNo}"></apex:outputText></b><br/>
+    <b>AWB No:-<apex:outputText value="{!Awb}"></apex:outputText></b><br/>
+   
+   <apex:outputpanel rendered="{!If((cpartner<>'India Post'),true,false)}">
+        <center><apex:image id="Image" url="{!Barcode}" width="200" height="50" /></center><br/><br/>
+  </apex:outputpanel>
+    <!--apex:outputText value="{!attachPDF}" escape="false"></apex:outputText renderAs="PDF"-->
+	</apex:page>

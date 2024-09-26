@@ -1,0 +1,20 @@
+<apex:page standardController="Case" extensions="ShipRocketApiCallout" >
+     <style>
+    .buttonStyle { width:100%; background-color:green; text-align:center; padding-top:4px; }
+    </style>
+    <apex:form >
+        <apex:outputText value="{!Phase2Text}" rendered="{!if(phase2 <> true,true,false)}" style="color:red"></apex:outputText>
+        <apex:pageMessages /><br/>		
+    <apex:commandButton action="{!CreateReturnOrder}" title="Create Return Order" value="Return Order" rendered="{!if(phase2 == true,isCreate,false)}" styleClass="buttonStyle" style="background:#ebebe0"/><br/>
+    <apex:commandButton action="{!CheckServicebility}" title="Create Return Order" value="Check Servicebility" rendered="{!if(phase2 == true,isServicebility,false)}" styleClass="buttonStyle" style="background:#ebebe0"/><br/>
+    <apex:commandButton action="{!CreateAWB}" title="Create Return Order" value="Generate AWB" rendered="{!if(phase2 == true,isAWB,false)}" styleClass="buttonStyle" style="background:#ebebe0"/><br/>
+    <apex:commandButton action="{!ReturnOrderTracking}" title="Create Return Order" value="Track Through AWB" rendered="{!if(phase2 == true,isTracking,false)}" styleClass="buttonStyle" style="background:#ebebe0"/><br/>
+    <apex:commandButton action="{!pickup}" title="Create Return Order" value="Generate Pickup" rendered="{!if(phase2 == true,isPickup,false)}" styleClass="buttonStyle" style="background:#ebebe0"/><br/>
+    <!--apex:commandButton action="{!Label}" title="Track Forward Order" value="GetLabel" rendered="true" styleClass="buttonStyle" style="background:#ebebe0"/><br/-->
+   
+    </apex:form>
+    
+    
+    
+    
+</apex:page>

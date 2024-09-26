@@ -1,0 +1,12 @@
+<apex:page standardController="Case" extensions="DelhiveryApiIntegration">
+    
+    <!--<style>
+        .buttonStyle { width:100%; background-color:green; text-align:center; padding-top:4px; }
+    </style>
+    
+    <apex:form > 
+        <apex:pageMessages /><br/>
+        <apex:commandButton action="{!CreateOrderDelhivery}" title="Create Forward Servicebility" value="Generate AWB And Create Order" styleClass="buttonStyle" style="background:#ebebe0"/><br/>
+        
+    </apex:form>-->
+</apex:page>

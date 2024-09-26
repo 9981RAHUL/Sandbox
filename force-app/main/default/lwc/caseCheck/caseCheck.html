@@ -1,0 +1,111 @@
+<template>
+  <lightning-card>
+
+    <div style="font-size: 15px;font-weight: bold;"><img src={addImg}
+        style="margin-bottom: 5px;background-color: yellowgreen;height: 30px;margin-left: 7px;width: 10%;border-radius: 0.25rem;">
+      <a onclick={handleClick}><b style="color: black;font-size: medium;"> Case List</b></a></img>
+      &nbsp;&nbsp;{countCases}
+    </div>
+
+    <template if:true={firstVisible}>
+      <!-- <template if:true={cases}> -->
+
+      <!-- <template for:each={cases} for:item="caseValue">
+            <div class="slds-box slds-box_xx-small" key={caseValue.id} >
+                <p style="margin-left: 25px;"> <a onclick={navigateToRecordPage} data-code={caseValue.Id}>{caseValue.CaseNumber}</a></p> 
+            </div>
+          </template> -->
+
+      <template for:each={cases} for:item="caseVar" for:index="index">
+      
+        <div key={caseVar.Id} style="margin-left: 25px;padding-top: 2%;">
+          <p > <a onclick={navigateToRecordPage}
+              data-code={caseVar.Id}>{caseVar.CaseNumber}</a></p>
+        </div>
+      </template>
+
+    </template>
+
+     
+      <div style="margin-left:100px;">
+        <button class="slds-button slds-button_brand" style="margin-top: 10px;margin-left: 25px;"
+          onclick={handleClick}>ViewAll
+
+        </button>
+      </div>
+    
+    <template if:false={cases}>
+      <p>New Case</p>
+    </template>
+
+
+
+    <template if:true={boolVisible}>
+
+
+      <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content"
+        class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+
+
+
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+            onclick={closeModal}>
+            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small">
+            </lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Cases List</h1>
+          </div>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout slds-table_striped"
+                aria-label=" Example headless table of Opportunities with cell content wrapped ">
+                <thead style="block-size: 48px;">
+                  <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="Typical Column Header" style="text-align: center;"> Case Number
+                      </div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate" title="Wrapped, line clamped" style="text-align: center;"> Status</div>
+                    </th>
+
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <template for:each={casesData} for:item="caseVar" for:index="index">
+
+                    <tr key={caseVar.id} data-code={caseVar.id}>
+
+                      <th>
+                        <div class="slds-truncate" title="Typical cell content" style="text-align: center;"><a
+                            onclick={navigateToRecordPage} data-code={caseVar.Id}>{ caseVar.CaseNumber}</a></div>
+                      </th>
+                      <th data-label="Typical Column Header" scope="row">
+                        <div class="slds-truncate" title="Typical cell content" data-code={caseVar.Id} style="text-align: center;">
+                          {caseVar.Status}</div>
+                      </th>
+                    </tr>
+
+                  </template>
+
+                </tbody>
+
+              </table>
+            </div>
+            <div class="slds-modal__footer">
+              <button class="slds-button slds-button_neutral" aria-label="Cancel and close"
+                onclick={closeModal}>Cancel</button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+  </lightning-card>
+</template>

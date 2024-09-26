@@ -1,0 +1,15 @@
+<!--
+  @description       : Aura Component wrapper to encapsulate the servicibility LWC Component and appear as quick action on Case object
+  @author            : Ajitesh
+  @group             : 
+  @last modified on  : 11-26-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   25 Nov 2020  Ajitesh                              Initial Version
+-->
+
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:attribute name="recordId" type="String" />
+    <c:servicibilityCourierSelection onquickactionclose="{!c.quickActionClose}" recordId="{!v.recordId}"></c:servicibilityCourierSelection>
+</aura:component>

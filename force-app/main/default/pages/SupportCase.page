@@ -1,0 +1,33 @@
+<!--
+  @description       : Visualforce page for Web to case generation through force.com sites
+  @author            : Ajitesh Singh
+  @group             : 
+  @last modified on  : 12-16-2020
+  @last modified by  : Ajitesh Singh
+  Modifications Log 
+  Ver   Date         Author          Modification
+  1.0   12-03-2020   Ajitesh Singh   Initial Version
+  1.0   01-05-2022   Avinash         Initial Version
+-->
+<apex:page showHeader="false" sidebar="false" >
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    
+  </head>
+  <apex:includeLightning />    
+  <div id="LightningComponentid" />    
+  <script>
+  $Lightning.use("c:SupportCaseAppHelper", function() {
+          $Lightning.createComponent("c:webToCaseForm",
+              { },
+              "LightningComponentid",
+              function(cmp) {
+                console.log("Lightning Component inserted in VF");
+                // do some stuff
+              }
+          );
+        });
+  </script>
+</apex:page>

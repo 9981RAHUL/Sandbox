@@ -1,0 +1,42 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 11-26-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   11-25-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+
+
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large"
+        aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Courier Partner Selection</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium body_height">
+                <div class="slds-text-body_regular">Please select one of the below courier : </div>
+                <br>
+                <ul class="slds-has-dividers_around-space" if:true={courierPartnersExist}>
+                    <template for:each={courierList} for:item='courierPatner'>
+                        <li key={courierPatner.Id} class="slds-item">
+                            <a href="javascript:void(0);" data-courierpartner={courierPatner.Courier_Partner__c} name={courierPatner.Id} onclick={handleCourierSelected}>
+                                {courierPatner.Courier_Partner__c}
+                            </a>
+                        </li>
+                    </template>
+                </ul>
+                <div if:false={courierPartnersExist}>
+                    <div class="slds-align_absolute-center" style="height:5rem">No Courier patners found. Please contact System Administrator!</div>
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={closeQuickAction}>Cancel</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

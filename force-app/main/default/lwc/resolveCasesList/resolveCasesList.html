@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Resolved Cases">
+        <!-- Search input -->
+        <lightning-input type="search" label="Search by Case Number" onchange={handleSearchTermChange}></lightning-input>
+
+        <!-- Data table to display resolved cases -->
+        <template if:true={resolveCases}>
+            <lightning-datatable
+                key-field="Id"
+                data={resolveCases}
+                columns={columns}
+                hide-checkbox-column="true"
+                onrowselection={handleRowSelection}
+                onrowaction={handleRowAction}>
+            </lightning-datatable>
+        </template>
+        <template if:false={resolveCases}>
+            No records found.
+        </template>
+    </lightning-card>
+</template>

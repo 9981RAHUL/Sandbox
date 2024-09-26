@@ -1,0 +1,64 @@
+<template>
+        <!-- lightning button for open custom modal window -->
+        <lightning-button variant="brand"
+        label="No Reply and Resolve"
+        title="No Reply and Resolve"
+        onclick={showModalBox}
+        class="slds-m-left_x-small"></lightning-button>
+         
+        <!-- modal start -->        
+        <template if:true={isShowModal}>
+         
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+       
+            <div class="slds-modal__container" style="margin-top: 5px;">
+            <!-- modal header start -->
+            <header class="slds-modal__header">
+                
+                <h2 class="slds-text-heading_medium slds-hyphenate">No Reply And Resolve</h2>
+                <lightning-icon class="slds-modal__close" icon-name="utility:close" size="small" onclick={closeModal2}></lightning-icon>
+
+            </header>
+            <!-- modal body start -->
+            <div class="slds-modal__content slds-p-around_medium" style="height: 205px;  overflow:hidden">
+                <template if:true={isEmailOpen}>
+
+                    
+
+                    <lightning-combobox name="progress"  value={CaseResolutionReason} placeholder="Select Case Resolution Reason"
+                        options={ResolutionReason_Picklist.data.values} onchange={handleCaseResolution}>
+                    </lightning-combobox>
+                </template>
+
+                <template if:true={CaseDisposition_Picklist.data}>
+                    <lightning-combobox name="progress"  value={caseDispositionInput} placeholder="Select Case  Disposition"
+                        options={CaseDisposition_Picklist.data.values} onchange={handleCaseDisposition}>
+                    </lightning-combobox>
+                </template>
+               <!-- <template if:true={originEmail = Email}>
+
+                </template>-->
+   
+        <!-- modal footer start-->
+      
+      
+       
+        </div>
+   
+        
+    <footer class="slds-modal__footer">
+        <lightning-record-view-form object-api-name={objectApiName} record-id={recordId}>
+            <lightning-button variant="brand" label="No Reply and Resolve" onclick={updateCase} 
+        class="slds-m-left_x-small" style="margin-right: 15px;"></lightning-button>
+        <button class="slds-button slds-button_neutral" onclick={hideModalBox}>Cancel</button>
+
+        </lightning-record-view-form>
+
+     </footer>
+    </div>
+        </section>
+       
+        <div class="slds-backdrop slds-backdrop_open">
+        </div>
+        </template>
+    </template>

@@ -1,0 +1,410 @@
+<!-- sldsValidatorIgnore -->
+<!--
+@description       : 
+@author            : Ajitesh Singh
+@group             : 
+@last modified on  : 09-12-2022
+@last modified by  : Avinash
+Modifications Log 
+Ver   Date         Author             Modification
+1.0   12-03-2020   Ajitesh Singh      Initial Version
+1.1   15-11-2021   Avinash  Modified Version (Invoice Number, Pin Code, Upload Invoice, Modal Popup)
+-->
+
+<template>
+<div class="slds-page-header">
+  <div class="slds-page-header__row">
+    <div class="slds-page-header__col-title">
+      <div class="slds-media">
+        <div class="slds-media__figure">
+          <span class="slds-icon_container slds-icon-standard-opportunity" title="opportunity">
+            <lightning-icon icon-name="standard:case" alternative-text="Case" title="Case"></lightning-icon>
+            <span class="slds-assistive-text">Case</span>
+          </span>
+        </div>
+        <div class="slds-media__body">
+          <div class="slds-page-header__name">
+            <div class="slds-page-header__name-title">
+              <h1>
+                <span class="slds-page-header__title slds-truncate" title="Submit a Ticket">Help Us Make Things Right : Submit Your Service Complaint.</span>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal popup -->
+<template if:true = {OutOfWarranty}>
+       
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container"> 
+       // modal header start
+         <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+               <lightning-icon icon-name="utility:close"
+                  alternative-text="close"
+                  variant="inverse"
+                  size="small" ></lightning-icon>
+               <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Ooops! Seems your  <b>{prodName}</b> ran out of warranty.</h2>
+         </header>
+         <footer class="slds-modal__footer" style="background-color: #D3D3D3;">
+          <lightning-button variant="brand" label="OK" class="slds-m-left_x-small" onclick={hideModalBox}></lightning-button>
+          <lightning-button label="Cancel" class="slds-m-left_x-small" onclick={handleCloseModal}></lightning-button>
+         </footer> 
+      </div>
+      
+</section>
+
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+<!--modal popup-->
+<template if:true = {PhysicalDamage}>
+       
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container"> 
+       <!-- modal header start -->
+         <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+               <lightning-icon icon-name="utility:close"
+                  alternative-text="close"
+                  variant="inverse"
+                  size="small" ></lightning-icon>
+               <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-headings" class="slds-text-heading_medium slds-hyphenate">Warning: Physical damage is not covered under warranty. In case your product has physical damage, it won't be repaired/replaced.</h2>
+         </header>
+         <footer class="slds-modal__footer" style="background-color: #D3D3D3;">
+          <lightning-button variant="brand" label="OK" class="slds-m-left_x-small" onclick={hideModalBox}></lightning-button>
+          <lightning-button label="Cancel" class="slds-m-left_x-small" onclick={handleCloseModal}></lightning-button>
+         </footer> 
+      </div>
+      
+</section>
+
+
+
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+<!-- Out of Warranty product pop-up -->
+
+ <template if:true = {CurvefamilyOutOfWarranty}>
+       
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container"> 
+       modal header start
+         <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+               <lightning-icon icon-name="utility:close"
+                  alternative-text="close"
+                  variant="inverse"
+                  size="small" ></lightning-icon>
+               <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading2" class="slds-text-heading_medium slds-hyphenate">Your service request had been registered. Your ticket id is <b>{caseNumber}</b>. Allow us 24 hours to get back to you with the necessary updates on email and whatsapp.  
+ 
+            </h2>
+         </header>
+         <footer class="slds-modal__footer" style="background-color: #D3D3D3;">
+         <lightning-button variant="brand" label="OK" class="slds-m-left_x-small"></lightning-button>
+          <lightning-button label="Cancle" class="slds-m-left_x-small" onclick={hideModalBox}></lightning-button>
+          <button class="slds-button slds-button_brand" onclick={handleCloseModal}>Close</button>
+        </footer> 
+      </div>
+      
+</section>
+
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+<template if:true = {showModal}>
+       
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container"> 
+       modal header start
+         <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+               <lightning-icon icon-name="utility:close"
+                  alternative-text="close"
+                  variant="inverse"
+                  size="small" ></lightning-icon>
+               <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading3" class="slds-text-heading_medium slds-hyphenate">Dear Customer, as per the invoice date entered your product is out of warranty and is not eligible for repair/replacement. Please do not send the product to us as we won’t proceed with warranty claim or dispatch your product back.
+  
+ 
+            </h2>
+         </header>
+         <footer class="slds-modal__footer" style="background-color: #D3D3D3;">
+         
+          <button class="slds-button slds-button_brand" onclick={closeModal}>Close</button>
+        </footer> 
+      </div>
+      
+</section>
+
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+<template if:true = {showModal2}>
+       
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container"> 
+       modal header start
+         <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+               <lightning-icon icon-name="utility:close"
+                  alternative-text="close"
+                  variant="inverse"
+                  size="small" ></lightning-icon>
+               <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading4" class="slds-text-heading_medium slds-hyphenate">Please Select Date Today or earlier.  
+ 
+            </h2>
+         </header>
+         <footer class="slds-modal__footer" style="background-color: #D3D3D3;">
+         
+          <button class="slds-button slds-button_brand" onclick={closeModal}>Close</button>
+        </footer> 
+      </div>
+      
+</section>
+
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+
+<div class="slds-p-around_large">
+  <lightning-card title="Ticket Information">
+
+    <lightning-spinner alternative-text="Loading" variant="brand" size="large" if:true={isLoading}>
+    </lightning-spinner>
+    <div class="slds-p-horizontal_small">
+      <lightning-layout multiple-rows> 
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" onkeyup={handleChange} onchange={handleChange}
+            name="SuppliedName" label="Contact Name" required></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="email" autocomplete="true" onkeyup={handleChange} onchange={handleChange}
+            label="Email" name="SuppliedEmail" required></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" onkeyup={handleChange} onchange={handleChange}
+            onkeypress={handleisNumber} min-length="10" max-length="10" pattern="^[1-9][0-9]*$" label="Phone"
+            name="SuppliedPhone" required></lightning-input>
+        </lightning-layout-item>  
+
+
+
+
+
+
+          <lightning-layout-item padding="around-small" size="12" medium-device-size="12" large-device-size="6">
+          <lightning-combobox  name="productFamily" label="Product Category" placeholder="Select Product Category" value={productFamily} options={productFamilyOptions} onchange={handleProductFamilyChange}
+            required>
+          </lightning-combobox>
+        </lightning-layout-item>
+        
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-combobox class="selectProduct" data-field="Product__c" name="Product__c" label="Product Name" options={productList} onchange={handleChange}
+            required>
+          </lightning-combobox>
+        </lightning-layout-item>
+        <!--
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-combobox name="Product_Color__c" label="Color" options={productColorList} onchange={handleChange}
+            required>
+          </lightning-combobox>
+        </lightning-layout-item>
+        -->
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-combobox name="Market_Place_Platform__c" label="Product Purchased from"
+            options={productPurchasedFromList} onchange={handleChange} required>
+          </lightning-combobox>
+        </lightning-layout-item>
+
+<lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+    <span class="required-asterisk" if:true={isOrderIdRequired}>*</span> Order Id
+    <a class="slds-m-bottom_xxx-small" href="https://www.boultaudio.com/pages/faq-order-and-tickets">
+        (where to find my order id ?)
+    </a>
+    <lightning-input variant="label-hidden" type="text" autocomplete="true" name="Order_ID__c" onkeyup={handleChange}
+        onchange={handleChange} disabled={isOrderIdDisabled} required={isOrderIdRequired}></lightning-input>
+</lightning-layout-item>
+
+
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-combobox name="Issue_Category__c" label="Type of Complaint" options={typeOfComplaintList}
+          onchange={handleChange} required>
+        </lightning-combobox>        
+        </lightning-layout-item>
+<!--
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-combobox name="Type_Of_Sub_Complain__c" label="Subcomplaint Type" options={SubComplaintList}
+          onchange={handleChange} required>
+        </lightning-combobox>
+        </lightning-layout-item>
+        -->
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="date" data-field="Purchase_Date__c" name="Purchase_Date__c" onchange={handleDateChange} max={maxDateAllowed} 
+          label="Purchased Date" required></lightning-input>
+        </lightning-layout-item>
+        <!--
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" onchange={handleChange} onkeyup={handleChange}
+            name="Subject" label="Subject" required></lightning-input>
+        </lightning-layout-item>
+        -->
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-textarea name="Description" onchange={handleChange} onkeyup={handleChange} required
+            label="Describe your Complaint"></lightning-textarea>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+
+          <lightning-input type="text" autocomplete="true" onchange={handleChange} onkeyup={handleChange}
+            name="Street" label="Address and Street" onkeypress={handleAddressInput} required></lightning-input>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="string" autocomplete="true" pattern="[0-9]*$" min-length="6" max-length="6"
+            onchange={handleChangePincode} onkeypress={handleisNumber} name="Pincode" label="Pincode" value={Pin} required
+            class="inputText" ></lightning-input>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" name="City" label="City" value={City} disabled="true">
+          </lightning-input>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" name="State" label="State" value={State} disabled="true">
+          </lightning-input>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" onchange={handleChange} onkeyup={handleChange}
+            name="Country" label="Country" value="India" required></lightning-input>
+
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <lightning-input type="text" autocomplete="true" onchange={handleChange} onkeyup={handleChange}
+            name="Landmark__c" label="Landmark" required></lightning-input>
+        </lightning-layout-item>
+        
+<lightning-layout-item padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+    <lightning-input type="text" autocomplete="true" onkeyup={handleChange} onchange={handleChange}
+        label="Invoice Number" name="Invoice_Number__c" disabled={isInvoiceDisabled} required={isInvoiceRequired}>
+    </lightning-input>
+</lightning-layout-item>
+
+
+        <lightning-layout-item if:true={isInvoiceRequired} if:false={isInvoiceDisabled}  padding="around-small" size="12" medium-device-size="6" large-device-size="6">
+          <label style="display: inline-block;position: relative;height: 45px;width: 100px;" for="inputFile">
+            <lightning-button variant="brand" label="Upload Invoice"  class="slds-size_medium"></lightning-button>
+            <h1></h1>
+             
+           
+
+            <lightning-input style="position: absolute;left: 0;opacity: 0;top: 0;bottom: 0;width: 100%;" type="file"
+            name="Upload Invoice" label="Attach File" onchange={handleUploadFinished}
+            required={isUploadInvoiceRequired}></lightning-input>
+          </label>
+          <span class="slds-text-body_regular"><h1 style="margin-left: 15px;font-weight:800;">Steps to Download Invoice </h1><br>
+            <h2 style="margin-left: 115px;font-weight:700;">Purchased site>>>My Orders>>>Select the product>>>Download the invoice</h2></span>
+        </lightning-layout-item>
+
+      </lightning-layout>
+    </div>
+    <p slot="footer">
+      <lightning-button-group>
+        <lightning-button variant="brand" disabled={saveDisabled} label="Save" onclick={handleSubmit}>
+        </lightning-button>
+        <lightning-button variant="brand" label="Cancel" onclick={handleCancelForm}></lightning-button>
+      </lightning-button-group><br />
+    </p>
+  </lightning-card>
+</div>
+
+    <template if:true={outofWarrantyBoolean}>
+        <p class="slds-text-color_error">Product is out of warranty.</p>
+    </template>
+
+<!--
+* @description  : Display Pop-Up on successsful Case Creation.
+* @author       : Avinash | 22-11-2021 
+-->
+<template if:true={isModalOpen}>
+  <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium "
+    aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+    <div class="slds-modal__container">
+      <header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Thank you for submitting your service
+          request!</h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <p>Dear {customerName},</p><br>
+        <p>Please courier your defective product with <b>Ticket id - {caseNumber}</b> to our service center following these steps:</p><br>
+        
+        <p><b>1. Choose a courier partner:</b></p><br> 
+          <p>Please courier your product to our address (Mentioned below) using any preferred courier service.</p><br> 
+          <p>Address: Exotic Mile Private Limited, B-67,Wazirpur Industrial Area, New Delhi 110052.</p><br>
+           
+          <p><b>2. Packing Instructions:</b></p>
+            <p>• Pack the complete product without the accessories.</p>
+            <p>• Mention your mobile number and Ticket ID: <b>{caseNumber}</b> on the package.</p>
+            <p>• Include the recipient’s contact number: <b>9555602502</b></p>
+            <p>• Attach the packing slip from the courier website or write the details on paper and paste it on the package.</p>
+            <br/>
+
+            <p><b>Note: Physically damaged or out-of-warranty products are not eligible for warranty.</b></p><br/>
+
+            <p><b>3. We will notify you once your product is dispatched.</b></p><br/>
+              <p>After receiving your product, we will send it back within 72 working hours.</p>
+              <p>Delivery will take 4-8 working days.</p>
+            <br/>
+
+          <p>Thank you for your cooperation!</p>
+          <p>Support Team, Boult Audio</p><br/>
+      </div>
+      <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_brand" onclick={handleCloseModal}>Close</button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+<!--
+* @description  : Display Pop-Up on Cancellation of Form.
+* @author       : Avinash | 23-11-2021 
+-->
+<template if:true={isCancelModalOpen}>
+  <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium "
+    aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+    <div class="slds-modal__container">
+      <header class="slds-modal__header">
+        <h2 id="modal-heading-02" class="slds-modal__title slds-hyphenate">Your service request has not been
+          registered</h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+        <p><b>To continue your current form: </b></p>
+      </div>
+      <footer class="slds-modal__footer">
+        <lightning-button-group>
+          <lightning-button variant="brand" label="Continue" onclick={handleContinue}></lightning-button>
+          <lightning-button variant="success" label="Return to Homepage" onclick={handleCloseModal}>
+          </lightning-button>
+        </lightning-button-group><br />
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+</template>
